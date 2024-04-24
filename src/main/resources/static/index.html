@@ -13,33 +13,30 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-<h1>Bestilling av kinobilletter</h1>
+            <h1>Bestilling av kinobilletter</h1>
             <form class="form">
-            <div class="form-group">
+                <div class="form-group">
+                    <label for="velgFilm">Velg film</label>
+                    <select id="velgFilm">
+                        <option value="">Velg film her</option>
 
+                        <option value="Ronja røverdatter">Ronja røverdatter</option>
+                        <option value="Matilda">Matilda</option>
+                        <option value="Charlie og sjokoladefabrikken">Charlie og sjokoladefabrikken</option>
+                        <option value="Knerten">Knerten</option>
+                        <option value="Ulvesommer">Ulvesommer</option>
+                        <option value="Kutoppen">Kutoppen</option>
+                        <option value="Nabospionen">Nabospionen</option>
+                        <option value="Familien Bigfoot">Familien Bigfoot</option>
+                    </select>
+                    <span id="feilValg" style="color: red"></span>
+                </div>
 
-        <label for="velgFilm">Velg film</label>
-        <select id="velgFilm">
-            <option value="">Velg film her</option>
-
-            <option value="Ronja røverdatter">Ronja røverdatter</option>
-            <option value="Matilda">Matilda</option>
-            <option value="Charlie og sjokoladefabrikken">Charlie og sjokoladefabrikken</option>
-            <option value="Knerten">Knerten</option>
-            <option value="Ulvesommer">Ulvesommer</option>
-            <option value="Kutoppen">Kutoppen</option>
-            <option value="Nabospionen">Nabospionen</option>
-            <option value="Familien Bigfoot">Familien Bigfoot</option>
-        </select>
-                <span id="feilValg" style="color: red"></span>
-            </div>
-
-         <div class="form-group">
-            <label for="antall">Antall</label>
-            <input type="text" class="form-control" size="1px" id="antall">
-            <span id="feilTall" class="feil" style="color: red" ></span>
-        </div>
-
+                 <div class="form-group">
+                    <label for="antall">Antall</label>
+                    <input type="text" class="form-control" size="1px" id="antall">
+                    <span id="feilTall" class="feil" style="color: red" ></span>
+                </div>
                 <div class="form-group">
                     <label for="fornavn">Fornavn</label>
                     <input type="text" class="form-control" size="1px" id="fornavn">
@@ -64,17 +61,15 @@
                     <span id="feilEpost" class="feil" style="color: red" ></span>
                 </div>
             </form>
-
-<button class="btn btn-primary" id="kjop" onclick="kjopBillett()">Kjøp billett</button><br/>
+            <button class="btn btn-primary" id="kjop" onclick="kjopBillett()">Kjøp billett</button><br/>
         </div>
 
         <div class="cil-md-8">
-<h2>Alle billetter</h2>
-<div id="kjopBillett"></div>
+            <h2>Alle billetter</h2>
+            <div id="kjopBillett" class="table"></div>
 
-
-<button class="btn btn-danger" onclick="slettAlle()">Slett alle billettene</button>
-<div id="slett"></div>
+            <button class="btn btn-danger" onclick="slettAlle()">Slett alle billettene</button>
+            <div id="slett"></div>
         </div>
     </div>
 </div>

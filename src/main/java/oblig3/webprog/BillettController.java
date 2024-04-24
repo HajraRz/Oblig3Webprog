@@ -1,30 +1,30 @@
-package webprog.oblig2_3_webprog;
+package oblig3.webprog;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class BillettController {
-    List<Billett> allebilletter = new ArrayList<>();
+
+    @Autowired
+    private BillettRepository rep;
 
     @PostMapping("/kjopBillett")
     public void kjop(Billett billett){
-        allebilletter.add(billett);
+        System.out.println(billett.toString());
+        rep.lagreBillett(billett);
     }
 
     @GetMapping("/hentbilletter")
     public List<Billett> Billett(){
-        return allebilletter;
+        return rep.hentAlleBilletter();
     }
 
-    @GetMapping("/slettAlleBilletter")
+    @DeleteMapping("/slettAlleBilletter")
     public void slett(){
-        allebilletter.clear();
+        rep.slettAlleBilletter();
     }
 }

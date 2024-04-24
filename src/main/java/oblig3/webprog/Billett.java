@@ -1,7 +1,6 @@
-package webprog.oblig2_3_webprog;
+package oblig3.webprog;
 
 public class Billett {
-
     private String valg;
     private String antall;
     private String fornavn;
@@ -9,6 +8,7 @@ public class Billett {
     private String telefonNr;
     private String epost;
 
+    public Billett(){}
 
     public Billett(String valg, String antall, String fornavn, String etternavn, String telefonNr, String epost){
         this.valg = valg;
@@ -67,5 +67,15 @@ public class Billett {
         this.epost=epost;
     }
 
-
+    @Override
+    public String toString() {
+        return "Billett{" +
+                "valg='" + valg + '\'' +
+                ", antall='" + antall + '\'' +
+                ", fornavn='" + fornavn + '\'' +
+                ", etternavn='" + etternavn + '\'' +
+                ", telefonNr='" + telefonNr + '\'' +
+                ", epost='" + epost + '\'' +
+                '}';
+    }
 }
