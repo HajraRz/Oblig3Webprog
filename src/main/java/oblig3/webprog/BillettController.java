@@ -8,6 +8,8 @@ import java.util.List;
 
 @RestController
 public class BillettController {
+    @Autowired
+    BillettRepository rep ;
     List<Billett> allebilletter = new ArrayList<>();
 
     @PostMapping("/kjopBillett")
@@ -18,16 +20,17 @@ public class BillettController {
         System.out.println("Etternavn: " + billett.getEtternavn());
         System.out.println("Antall: " + billett.getAntall());
         System.out.println("Epost: " + billett.getEpost());
-        allebilletter.add(billett);
+        //allebilletter.add(billett);
+        rep.lagreBillett(billett);
     }
 
     @GetMapping("/hentbilletter")
     public List<Billett> Billett(){
-        return allebilletter;
+        return rep.hentAlleBilletter();
     }
 
     @GetMapping("/slettAlleBilletter")
     public void slett(){
-        allebilletter.clear();
+        rep.slettAlleBilletter();
     }
 }
