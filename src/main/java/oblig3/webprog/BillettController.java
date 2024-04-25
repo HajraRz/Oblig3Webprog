@@ -8,23 +8,26 @@ import java.util.List;
 
 @RestController
 public class BillettController {
-
-    @Autowired
-    private BillettRepository rep;
+    List<Billett> allebilletter = new ArrayList<>();
 
     @PostMapping("/kjopBillett")
     public void kjop(Billett billett){
-        System.out.println(billett.toString());
-        rep.lagreBillett(billett);
+        System.out.println("Dette er inne på server: ");
+        System.out.println("telenfor: " + billett.getTelefonnr());
+        System.out.println("Fornavn: " + billett.getFornavn());
+        System.out.println("Etternavn: " + billett.getEtternavn());
+        System.out.println("Antall: " + billett.getAntall());
+        System.out.println("Epost: " + billett.getEpost());
+        allebilletter.add(billett);
     }
 
     @GetMapping("/hentbilletter")
     public List<Billett> Billett(){
-        return rep.hentAlleBilletter();
+        return allebilletter;
     }
 
-    @DeleteMapping("/slettAlleBilletter")
+    @GetMapping("/slettAlleBilletter")
     public void slett(){
-        rep.slettAlleBilletter();
+        allebilletter.clear();
     }
 }

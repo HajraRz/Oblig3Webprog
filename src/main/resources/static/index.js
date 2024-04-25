@@ -1,49 +1,45 @@
 
 
-function sjekk() {
-    const streng = $("#antall").val();
-    if (streng === "" || isNaN(Number(streng))) {
-        $("#feilTall").html("Skriv gyldig tall")
-    } else {
-        $("#feilTall").html("")
-    }
-}
-
 function kjopBillett() {
 
     let bestilling = {
-        valg: $("#velgFilm").val(),
-        antall: $('#antall').val(),
-        fornavn: $("#fornavn").val(),
-        etternavn: $("#etternavn").val(),
-        telefonnr: $("#telefonNr").val(),
-        epost: $("#epost").val()
-    };
+        Valg: $("#velgFilm").val(),
+        Antall: $('#antall').val(),
+        Fornavn: $("#fornavn").val(),
+        Etternavn: $("#etternavn").val(),
+        Telefonnr: $("#telefonNr").val(),
+        Epost: $("#epost").val()
+    }
+    console.log(bestilling.Telefonnr)
     let feilmelding = 0;
 
-    if (bestilling.valg === "") {
+    if (bestilling.Valg === "") {
         $("#feilValg").html("Velg film");
         feilmelding++;
     }else{
         $("#feilValg").html("");
     }
 
-    if (bestilling.antall === '' || bestilling.antall < 1) {
+    if (bestilling.Antall === '' || bestilling.Antall < 1) {
         $("#feilTall").html("Oppgi antall");
         feilmelding++;
-    } else if (isNaN(bestilling.antall)){
+    } else if (isNaN(bestilling.Antall)){
         $("#feilTall").html("Skriv inn gyldig tall!");
         feilmelding++;
-    } else {
+    }  else if (bestilling.Antall == null){
+        $("#feilTall").html("null verdi");
+        feilmelding++;
+    }
+    else {
         $("#feilTall").html("");
     }
-    if (bestilling.fornavn === "") {
+    if (bestilling.Fornavn === "") {
         $("#feilNavn").html("Oppgi fornavn");
         feilmelding++;
     } else {
         $("#feilNavn").html("");
     }
-    if (bestilling.etternavn === "") {
+    if (bestilling.Etternavn === "") {
         $("#feilEtternavn").html("Oppgi etternavn");
         feilmelding++;
     } else {
@@ -51,27 +47,27 @@ function kjopBillett() {
     }
 
     let telefonRegex= /^[0-9]{8}$/;
-    if (bestilling.telefonnr === "") {
+    if (bestilling.Telefonnr === "") {
         $("#feilTlfNr").html("Oppgi telefonnr");
         feilmelding++;
-    } else if (!bestilling.telefonnr.match(/^[0-9]{8}$/)){
+    } else if (!telefonNr.value.match(/^[0-9]{8}$/)){
         $("#feilTlfNr").html("Skriv inn gyldig telefonnr!");
         feilmelding++;
     } else {
         $("#feilTlfNr").html("");
     }
-    if (bestilling.epost === "") {
+    if (bestilling.Epost === "") {
         $("#feilEpost").html("Må skrive Epost");
         feilmelding++;
-    } else if(!bestilling.epost.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i)){
+    } else if(!epost.value.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i)){
         $("#feilEpost").html("Skriv gyldig epost");
         feilmelding++;
     } else {
         $("#feilEpost").html("");
     }
     if (feilmelding === 0) {
+        console.log("Vi er på vei til å gi post :");
         console.log(bestilling);
-        console.log(typeof bestilling.telefonnr, bestilling.telefonnr);
         $.post("/kjopBillett", bestilling, function(){
             hentbillett();
         })
@@ -83,6 +79,7 @@ function kjopBillett() {
 function hentbillett(){
 
     $.get("/hentbilletter", function (data){
+        console.log("Vi er inne i alle hentbilletter");
         console.log(data);
         alleBilletter(data);
 
@@ -90,16 +87,19 @@ function hentbillett(){
 
 }
 
-function alleBilletter(billett) {
-
+function alleBilletter(data) {
+    let billettkjop = data;
+    console.log("Vi er inne i alle billetter");
+    console.log(data);
     let ut = "<table><tr><th>Valgt film</th><th>Antall</th><th>Fornavn</th>" +
         "<th>Etternavn</th><th>Tlfnr</th><th>Epost</th></tr>";
-    for (let i of billett) {
+    for (let i = 0; i< billettkjop.length ; i++) {
+        console.log("Vi sjekker hva som er i index 0")
+        console.log(billettkjop[i]);
         ut += "<tr>";
-        ut += "<td>" + i.valg + "</td><td>" + i.antall + "</td><td>" + i.fornavn +
-            "</td><td>" + i.etternavn + "</td><td>" + i.telefonnr + "</td><td>" +
-            i.epost + "</td>"
-        ut += "</tr>"
+        ut += "<td>" + billettkjop[i].valg + "</td><td>" + billettkjop[i].antall + "</td><td>" + billettkjop[i].fornavn +
+            "</td><td>" + billettkjop[i].etternavn + "</td><td>" + billettkjop[i].telefonnr + "</td><td>" +
+            billettkjop[i].epost + "</td>";
     }
     ut += "</table>"
 
@@ -117,7 +117,7 @@ function tomAlt(){
 }
 function slettAlle() {
     $.get("/slettAlleBilletter", function (){
-        hentbillett()
-    })
+        hentbillett();
 
+    });
 }
